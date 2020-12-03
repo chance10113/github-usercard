@@ -42,6 +42,8 @@ axios
 */
 
 const followersArray = [];
+//I G N O R E  T H E   A B O V E !!!!//I G N O R E  T H E   A B O V E !!!!//I G N O R E  T H E   A B O V E !!!!//I G N O R E  T H E   A B O V E !!!!
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -62,6 +64,36 @@ const followersArray = [];
       </div>
     </div>
 */
+
+function cardMaker(cardObj){
+  //creating elements
+  const card = document.createElement('div');
+  const img = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const name = document.createElement('h3');
+  const userName =document.createElement('p')
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+//adding classes
+card.classList.add('card');
+cardInfo.classList.add('card-info');
+name.classList.add('name');
+userName.classList.add('username');
+//stitching together
+card.appendChild(img);
+card.appendChild(cardInfo);
+cardInfo.appendChild(name);
+cardInfo.appendChild(userName);
+cardInfo.appendChild(location);
+cardInfo.appendChild(profile);
+cardInfo.appendChild(followers);
+cardInfo.appendChild(following);
+cardInfo.appendChild(bio);
+}
+
 
 /*
   List of LS Instructors Github username's:
