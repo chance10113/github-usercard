@@ -1,4 +1,4 @@
-const { default: Axios } = require("axios");
+//const { default: Axios } = require("axios");
 import axios from "axios";
 /*
   STEP 1: using axios, send a GET request to the following URL
@@ -11,8 +11,9 @@ axios
 .get('https://api.github.com/users/chance10113')
 .then(res => {
   const gitInfo = res.data
-  const newCard = cardMaker(gitInfo)
-  entry.appendChild(newCard)
+ // const newCard = cardMaker(gitInfo)
+  //entry.appendChild(newCard)
+  console.log('this is a thing, you know it when you see it', gitInfo)
 })
 .catch(beef => {
   console.log(beef)
@@ -96,6 +97,7 @@ function cardMaker(gitInfo){
   const followers = document.createElement('p');
   const following = document.createElement('p');
   const bio = document.createElement('p');
+  const anchor = document.createElement('a');
 //adding classes
 card.classList.add('card');
 cardInfo.classList.add('card-info');
@@ -111,6 +113,16 @@ cardInfo.appendChild(profile);
 cardInfo.appendChild(followers);
 cardInfo.appendChild(following);
 cardInfo.appendChild(bio);
+profile.appendChild(anchor)
+//Content
+img.src = gitInfo.avatar_url
+name.textContent = gitInfo.name;
+userName.textContent = gitInfo.userName
+location.textContent = gitInfo.location
+anchor.textContent = gitInfo.url;
+followers.textContent = `Followers: ${gitInfo.followers}`;
+following.textContent = `Following: ${gitInfo.following}`;
+bio.textContent = `Bio ${gitInfo.bio}`;
 }
 
 
