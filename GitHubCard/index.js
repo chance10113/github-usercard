@@ -5,18 +5,37 @@ import axios from "axios";
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+const entry = document.querySelector('.cards')
+
 axios
 .get('https://api.github.com/users/chance10113')
-.then((futureData) => {
-  // future code for when the data actually arrives
-  // freedom to assume that the data is here
-  console.log("2. here is the future data", futureData);
+.then(res => {
+  const gitInfo = res.data
+  const newCard = cardMaker(gitInfo)
+  entry.appendChild(newCard)
 })
-.catch((drama) => {
-  // handle the drama
-  console.log(drama);
-});
+.catch(beef => {
+  console.log(beef)
+})
+// .then(res) => {
+//   // future code for when the data actually arrives
+//   // freedom to assume that the data is here
+// const stuff = res.data;
+// const newCard = cardMaker(res.data)
+//       entry.appendChild(card)
+//       console.log("2. here is the future data", res);
+// })
+// .catch((drama) => {
+//   // handle the drama
+//   console.log(drama);
+// });
 
+
+// .then(res => {
+//   const gitInfo = res.data
+//   const gitCard = gitCardMaker(res.data)
+//   entryPoint.appendChild(gitCard)
+// })
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -65,7 +84,7 @@ const followersArray = [];
     </div>
 */
 
-function cardMaker(cardObj){
+function cardMaker(gitInfo){
   //creating elements
   const card = document.createElement('div');
   const img = document.createElement('img');
