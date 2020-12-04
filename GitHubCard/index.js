@@ -11,8 +11,8 @@ axios
 .get('https://api.github.com/users/chance10113')
 .then(res => {
   const gitInfo = res.data
- // const newCard = cardMaker(gitInfo)
-  //entry.appendChild(newCard)
+  const newCard = cardMaker(gitInfo)
+  entry.appendChild(newCard)
   console.log('this is a thing, you know it when you see it', gitInfo)
 })
 .catch(beef => {
@@ -60,11 +60,32 @@ axios
     Using that array, iterate over it, requesting data for each user, creating a new card for each
     user, and adding that card to the DOM.
 */
+//1like2learn
+let followersArray = [];
+axios
+.get('https://api.github.com/users/chance10113/followers')
+.then(res =>
+{ followersArray = res.data
+  console.log('Follow stuff', followersArray)
+  followersArray.forEach(gitInfo => {
+    axios
+    .get(gitInfo.url)
+    .then(response => {
+      const newCard = cardMaker(response.data)
+        entry.appendChild(newCard)
+        console.log('Steve', response.data) 
+    })
+  })
+}  )
+.catch((drama) => {
+  console.log(drama)
+})
 
-const followersArray = [];
-//I G N O R E  T H E   A B O V E !!!!//I G N O R E  T H E   A B O V E !!!!//I G N O R E  T H E   A B O V E !!!!//I G N O R E  T H E   A B O V E !!!!
-
-
+// followersArray.forEach(gitInfo => {
+//   const newCard = cardMaker(gitInfo)
+//     entry.appendChild(newCard)
+//     console.log('Steve', gitInfo)
+// })
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
@@ -117,12 +138,14 @@ profile.appendChild(anchor)
 //Content
 img.src = gitInfo.avatar_url
 name.textContent = gitInfo.name;
-userName.textContent = gitInfo.userName
-location.textContent = gitInfo.location
-anchor.textContent = gitInfo.url;
+userName.textContent = gitInfo.login
+location.textContent = `Location: ${gitInfo.location}`
+anchor.textContent = ` Profile: ${gitInfo.url}`;
+anchor.href = gitInfo.html_url;
 followers.textContent = `Followers: ${gitInfo.followers}`;
 following.textContent = `Following: ${gitInfo.following}`;
-bio.textContent = `Bio ${gitInfo.bio}`;
+bio.textContent = `Bio: ${gitInfo.bio}`;
+return card
 }
 
 
