@@ -4,11 +4,19 @@ import axios from "axios"
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+
+const entryPoint = document.querySelector('.cards')
+
 axios
   .get('https://api.github.com/users/chance10113')
   .then((res) => {
     // console.log('res', res)
-    console.log('res.data', res.data)
+    // console.log('res.data', res.data)
+    const gitInfo = res.data
+    const newCard = cardMaker(gitInfo)
+    entryPoint.appendChild(newCard)
+    console.log('gitInfo', gitInfo)
+
   })
   .catch((error) => {
     console.log('error', error)
