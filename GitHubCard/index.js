@@ -88,11 +88,19 @@ function cardMaker ( gitInfo ) {
   cardInfo.appendChild(followers)
   cardInfo.appendChild(following)
   cardInfo.appendChild(bio)
-
+// Adding Content
+  img.src = gitInfo.avatar_url
+  name.textContent = gitInfo.name
+  userName.textContent = gitInfo.username
+  location.textContent = `Location: ${gitInfo.location}`
+  anchor.textContent = `Profile: ${gitInfo.url}`
+  anchor.href = gitInfo.html_url
+  followers.textContent = `Followers: ${gitInfo.followers}`
+  following.textContent = `Following: ${gitInfo.following}`
+  bio.textContent = `Bio: ${gitInfo.bio}`
 
   return card;
 }
-
 /*
   List of LS Instructors Github username's:
     tetondan
