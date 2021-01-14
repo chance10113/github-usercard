@@ -1,9 +1,26 @@
+import axios from "axios"
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
 
+const entryPoint = document.querySelector('.cards')
+
+axios
+  .get('https://api.github.com/users/chance10113')
+  .then((res) => {
+    // console.log('res', res)
+    // console.log('res.data', res.data)
+    const gitInfo = res.data
+    const newCard = cardMaker(gitInfo)
+    entryPoint.appendChild(newCard)
+    console.log('gitInfo', gitInfo)
+
+  })
+  .catch((error) => {
+    console.log('error', error)
+  })
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -28,7 +45,33 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+// 'kristapants',
+// 'loustevenshere',
+// '1like2learn',
+// 'bigknell',
+// 'dustinmyers'
+let followersArray = [];
+
+axios
+.get('https://api.github.com/users/chance10113/followers')
+.then(res =>
+{followersArray = res.data
+  console.log('Follow stuff', followersArray)
+  followersArray.forEach(gitInfo => {
+    axios
+    .get(gitInfo.url)
+    .then(response => {
+      const newCard = cardMaker(response.data)
+        entryPoint.appendChild(newCard)
+        console.log('response.data', response.data) 
+    })
+  })
+}  )
+.catch((error) => {
+  console.log(error)
+})
+
+//Write this using a string literal, so that it maps/forEachs through the array
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -50,6 +93,48 @@ const followersArray = [];
     </div>
 */
 
+function cardMaker ( gitInfo ) {
+// Creating Elements
+  const card = document.createElement('div')
+  const img = document.createElement('img')
+  const cardInfo = document.createElement('div')
+  const name = document.createElement('h3')
+  const userName = document.createElement('p')
+  const location = document.createElement('p')
+  const profile = document.createElement('p')
+  const anchor = document.createElement('a')
+  const followers = document.createElement('p')
+  const following = document.createElement('p')
+  const bio = document.createElement('p')
+// Adding Class Names
+  card.classList.add('card')
+  cardInfo.classList.add('card-info')
+  name.classList.add('name')
+  userName.classList.add('username')
+// Stitching it all together
+  card.appendChild(img)
+  card.appendChild(cardInfo)
+  cardInfo.appendChild(name)
+  cardInfo.appendChild(userName)
+  cardInfo.appendChild(location)
+  cardInfo.appendChild(profile)
+  profile.appendChild(anchor)
+  cardInfo.appendChild(followers)
+  cardInfo.appendChild(following)
+  cardInfo.appendChild(bio)
+// Adding Content
+  img.src = gitInfo.avatar_url
+  name.textContent = gitInfo.name
+  userName.textContent = gitInfo.username
+  location.textContent = `Location: ${gitInfo.location}`
+  anchor.textContent = `Profile: ${gitInfo.url}`
+  anchor.href = gitInfo.html_url
+  followers.textContent = `Followers: ${gitInfo.followers}`
+  following.textContent = `Following: ${gitInfo.following}`
+  bio.textContent = `Bio: ${gitInfo.bio}`
+
+  return card;
+}
 /*
   List of LS Instructors Github username's:
     tetondan
