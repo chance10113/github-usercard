@@ -88,7 +88,9 @@ function cardMaker ( gitInfo ) {
   cardInfo.appendChild(followers)
   cardInfo.appendChild(following)
   cardInfo.appendChild(bio)
-  
+
+
+  return card;
 }
 
 /*
